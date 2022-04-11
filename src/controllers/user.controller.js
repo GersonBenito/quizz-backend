@@ -46,7 +46,23 @@ const getUserById = async(req, res = response) =>{
     }
 }
 
+// TODO: in progress dev
+const activateAccount = async(req, res = response) =>{
+    try {
+        return res.status(200).json({
+            status: 200,
+            message: 'account activated success'
+        });
+    } catch (error) {
+        return res.status(400).json({
+            status: 400,
+            message: 'ocurred an error to try activated account'
+        });
+    }
+}
+
 module.exports = {
     createUser,
     getUserById,
+    activateAccount,
 }

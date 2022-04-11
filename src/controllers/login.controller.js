@@ -4,8 +4,7 @@ const { response } = require("express");
 const login = async(req, res = response) =>{
     try {
         const { email } = req.body;
-
-        const user = await User.find({email});
+        const user = await User.findOne({email});
 
         if(!user){
             return res.status(404).json({
@@ -45,8 +44,8 @@ const recoverPassword = async(req, res = response) =>{
 
         const { _id, user, email } = userFound;
 
-        return res.status(302).json({
-            status: 302,
+        return res.status(200).json({
+            status: 200,
             data: { _id, user, email },
             message: 'user found success'
         });
@@ -60,7 +59,8 @@ const recoverPassword = async(req, res = response) =>{
 
 const changePassword = async(req, res = response) =>{
     try {
-        const { id, password } = req.body;
+        const id = req.params.id;
+        const { password } = req.body;
         await User.updateOne({_id: id}, { $set: { password: password } });
 
         return res.status(200).json({
