@@ -17,7 +17,7 @@ const login = async(req, res = response) =>{
             status: 200,
             data: { 
                 _id: user._id, 
-                user: user.user, 
+                userName: user.userName, 
                 email: user.email 
             },
             message: 'successful login'
@@ -41,12 +41,12 @@ const recoverPassword = async(req, res = response) =>{
                 message: 'user not found'
             });
         }
-
-        const { _id, user, email } = userFound;
+        console.log(userFound);
+        const { _id, userName, email } = userFound;
 
         return res.status(200).json({
             status: 200,
-            data: { _id, user, email },
+            data: { _id, userName, email },
             message: 'user found success'
         });
     } catch (error) {

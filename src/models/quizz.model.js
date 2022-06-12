@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const quizzModel = Schema({
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
     title: { type: String, required: true, },
     description: { type: String, required: true,},
     code: { type: String, required: true },
@@ -14,7 +15,7 @@ const quizzModel = Schema({
             title: { type: String, required: true },
             isTrue: { type: Boolean, required: true },
         }]
-    }]
+    }],
 });
 
 module.exports = model('Quizz', quizzModel);
