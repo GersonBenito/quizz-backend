@@ -1,6 +1,5 @@
 const { response } = require("express");
 const Quizz = require('../models/quizz.model');
-const User = require('../models/user.model');
 
 const createQuizz = async(req, res = response) =>{
     try {
@@ -57,8 +56,59 @@ const getQuizzByIdUser = async (req, res = response) =>{
     }
 }
 
+const deleteQuizz = async (req, res = response) =>{
+    try {
+
+        const id = req.params.id;
+        const quizz = await Quizz.findById(id);
+        if(!quizz){
+            return res.status(404).json({
+                status: 404,
+                message: 'Delete quizz by id not found',
+            });
+        }
+        await Quizz.deleteOne({_id: id});
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Quizz delete success'
+        });
+    } catch (error) {
+        return res.status(400).json({
+            status: 400,
+            message: 'Error to delete quizz'
+        });
+    }
+}
+
+const getQuizzById = async (req, res = response) =>{
+    try {
+        const id = req.params.id;
+        const quizz = await Quizz.findById({_id: id});
+        if(!quizz){
+            return res.status(404).json({
+                status: 404,
+                message: 'Id Quizz not found'
+            });
+        }
+
+       return res.status(200).json({
+        status: 200,
+        data: quizz,
+        message: 'Get quizz by id success'
+       }); 
+    } catch (error) {
+        return res.status(400).json({
+            status: 400,
+            message: 'Error to get quizz by id'
+        });
+    }
+}
+
 module.exports = {
     createQuizz,
     getAllQuizz,
-    getQuizzByIdUser
+    getQuizzByIdUser,
+    deleteQuizz,
+    getQuizzById,
 }
