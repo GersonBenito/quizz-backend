@@ -36,7 +36,50 @@ const getUserResponseById = async(req, res = response) =>{
     }
 }
 
+const getResponsesByIdQuiz = async (req, res = response) =>{
+    try{
+        const id = req.params.id;
+        const quiz = await UserResponse.find({idQuiz: id});
+
+        return res.status(200).json({
+            status: 200,
+            data: quiz,
+            message: 'Get responses by id quiz success',
+        });
+    }catch{
+        return res.status(400).json({
+            status: 400,
+            message: 'Error to get responses by id quiz',
+        });
+    }
+}
+
+const deleteUserResponse = async (req, res = response) =>{
+    try {
+        const id = req.params.id;
+        const quiz = await UserResponse.findById(id);
+        if(!quiz){
+            return res.status(404).json({
+                status: 404,
+                message: 'User responses not found'
+            });
+        }
+        await UserResponse.deleteOne({_id: id});
+        return res.status(200).json({
+            status: 200,
+            message: 'User responses delete success'
+        });
+    } catch (error) {
+        return res.status(400).json({
+            status: 400,
+            message: 'Error to delete user responses'
+        });
+    }
+}
+
 module.exports = {
     saveUserResponses,
     getUserResponseById,
+    getResponsesByIdQuiz,
+    deleteUserResponse,
 }
