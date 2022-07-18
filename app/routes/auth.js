@@ -9,7 +9,7 @@ const auth = require('../controllers/auth');
 
 router.post('/register', validateCreate, auth.register );
 router.post('/login', validateCreate, auth.login);
-router.get('/recover-password/:email', checkAuth, auth.recoverPassword);
+router.get('/recover-password/:email', auth.recoverPassword);
 router.post('/change-password/:id', checkAuth, checkChangePassword, auth.changePassword);
 
 module.exports = router;

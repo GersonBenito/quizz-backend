@@ -87,10 +87,11 @@ const recoverPassword = async(req, res = response) =>{
         }
 
         const { _id, userName, email } = userFound;
+        const tokenSession = await tokenSing(userFound);
 
         return res.status(200).json({
             status: 200,
-            data: { _id, userName, email },
+            data: { _id, userName, email, tokenSession },
             message: 'user found success'
         });
     } catch (error) {

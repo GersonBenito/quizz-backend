@@ -48,7 +48,7 @@ const getQuizzByIdUser = async (req, res = response) =>{
             message: 'get quizz by id user success'
         });
     } catch (error) {
-        console.log(error);
+        console.log('error',error);
         return res.status(400).json({
             status: 400,
             message: 'Error to get quizz by id user'

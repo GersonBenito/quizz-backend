@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const quizzModel = Schema({
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    user: { type: Schema.Types.ObjectId, ref: 'user' },
     title: { type: String, required: true, },
     description: { type: String, required: true,},
     code: { type: String, required: true },
